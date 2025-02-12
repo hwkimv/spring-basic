@@ -1,5 +1,7 @@
 package spring.spring_basic.order;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import spring.spring_basic.discount.DiscountPolicy;
 import spring.spring_basic.member.Member;
 import spring.spring_basic.member.MemberRepository;
@@ -7,13 +9,14 @@ import spring.spring_basic.member.MemberRepository;
 /**
  * 주문 생성 서비스
  */
+@Component
 public class OrderServiceImpl implements OrderService {
 
     private final MemberRepository memberRepository;
     private final DiscountPolicy discountPolicy;
 //    private final DiscountPolicy discountPolicy = new RateDiscountPolicy(); // DIP 위반 (구체 클래스에 의존)
 
-
+    @Autowired // 생성자 주입
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
