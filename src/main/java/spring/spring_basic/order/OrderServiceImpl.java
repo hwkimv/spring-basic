@@ -1,23 +1,27 @@
 package spring.spring_basic.order;
 
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import spring.spring_basic.annotation.MainDisCountPolicy;
 import spring.spring_basic.discount.DiscountPolicy;
 import spring.spring_basic.member.Member;
 import spring.spring_basic.member.MemberRepository;
-
+import lombok.RequiredArgsConstructor;
 /**
  * 주문 생성 서비스
  */
 @Component
+//@RequiredArgsConstructor // final 필드만 생성자 생성
+
 public class OrderServiceImpl implements OrderService {
 
+    @Getter
     private final MemberRepository memberRepository;
     private final DiscountPolicy discountPolicy;
-//    private final DiscountPolicy discountPolicy = new RateDiscountPolicy(); // DIP 위반 (구체 클래스에 의존)
 
-    @Autowired // 생성자 주입
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+    @Autowired
+    public OrderServiceImpl(MemberRepository memberRepository,@MainDisCountPolicy DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }
@@ -30,9 +34,5 @@ public class OrderServiceImpl implements OrderService {
         return new Order(memberId, itemName, itemPrice, discountPrice);
     }
 
-    // Test 용도
-    public MemberRepository getMemberRepository() {
-        return memberRepository;
-    }
 }
 
