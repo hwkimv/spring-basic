@@ -21,7 +21,8 @@ public class AutowiredTest {
     static class TestBean {
 
         // Member 빈이 없으면 메서드 자체가 호출이 안됨
-        @Autowired(required = false)
+        @
+                Autowired(required = false)
         public void setNoBean1(Member noBean1) {
             System.out.println("noBean1 = " + noBean1);
         }
